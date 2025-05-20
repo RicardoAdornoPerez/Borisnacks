@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/registro.css') }}">
+  <title>BoriSnacks - Log in</title>
+</head>
+<body>
+  <a href="{{ url_for('index') }}" class="back-button">Cancel</a>
+  <div class="section">
+    <div class="section">
+      <h1>Log in with your account</h1>
+      <form action="/login" method="POST">
+        <label for="correo">Email</label>
+        <input type="email" id="correo" name="correo" placeholder="johndoe@email.com" required autofocus>
+
+        <label for="contraseña">Password</label>
+        <input type="password" id="contraseña" name="contraseña" placeholder="Password" required>
+
+        <button type="submit">Log in</button>
+      </form>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flashes">
+          {% for category, message in messages %}
+            <div class="alert {{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+      {% endwith %}
+    </div>
+
+    <p>Don't have an account? <a href="/registro">Create one!</a></p>
+    <p>Forgot your password? <a href="#" onclick="document.getElementById('reset-password-form').style.display = 'block';">Recover it here!</a></p>
+    <form id="reset-password-form" method="POST" action="{{ url_for('reset_password_request') }}" style="display: none;">
+      <input type="email" name="correo" placeholder="Enter you email:" required>
+      <button type="submit">Send password reset link</button>
+    </form>
+  </div>
+  <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
+</body>
+</html>

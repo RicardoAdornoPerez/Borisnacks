@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/registro.css') }}">
+  <title>BoriSnacks - Create Account</title>
+</head>
+<body>
+  <a href="{{ url_for('index') }}" class="back-button">Cancel</a>
+  <div class="section">
+    <div class="section">
+      <h1>Create an Account</h1>
+      <form action="/registro" method="POST" style="width: 100%; max-width: 400px;" class="create-form">
+        <label for="nombre">Name:</label>
+        <input type="text" id="nombre" name="nombre" placeholder="First Name" required>
+        <br>
+
+        <label for="apellido">Last Name:</label>
+        <input type="text" id="apellido" name="apellido" placeholder="Last Name" required>
+        <br>
+
+        <label for="correo">Email Address:</label>
+        <input type="email" id="correo" name="correo" placeholder="johndoe@email.com" required>
+        <br>
+
+        <label for="contraseña">Password:</label>
+        <input type="password" id="contraseña" name="contraseña" placeholder="Create a Password" required>
+        <br>
+
+        <button type="submit">Create</button>
+      </form>
+      
+    </div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flashes">
+        {% for category, message in messages %}
+          <div class="{{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% endwith %}
+    <p>Back to <a href="/login">login</a></p>
+  </div>
+  
+  <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+{% extends 'user.html' %}
+{% block content %}
+    <h1>Settings</h1>
+    {% if session.user_id %}
+      <div class="nombreLogout">
+        <p><a href="{{ url_for('logout') }}" 
+          class="{% if request.endpoint == 'logout' %}active{% endif %} active" 
+          id="logout-link">Logout</a></p>
+      </div>
+      <button id="delete-account-btn" class="delete-button">Delete Account</button>
+
+      <!-- Primer pop-up de confirmación -->
+      <div id="confirm-popup" class="popup" style="display: none;">
+          <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+          <button id="confirm-yes">Yes, delete</button>
+          <button id="confirm-cancel">Cancel</button>
+      </div>
+
+      <!-- Segundo pop-up para ingresar la contraseña -->
+      <div id="password-popup" class="popup" style="display: none;">
+          <p>Please, enter your password to confirm:</p>
+          <input type="password" id="delete-password" placeholder="Ingresa tu contraseña">
+          <button id="submit-delete">Delete Account</button>
+          <button id="password-cancel">Cancel</button>
+      </div>
+
+      <form id="delete-form" method="POST" action="{{ url_for('delete_account') }}" style="display: none;">
+          <input type="hidden" name="contraseña" id="hidden-password">
+      </form>
+
+      <form id="reset-password-form" method="POST" action="{{ url_for('reset_password_request') }}">
+          <input type="email" name="correo" placeholder="Enter your Email" required>
+          <button type="submit">Send password reset link</button>
+      </form>
+
+    {% endif %}
+{% endblock %}
